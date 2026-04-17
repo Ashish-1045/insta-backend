@@ -4,7 +4,7 @@ const likeSchema = new mongoose.Schema(
   {
     post: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Post", // Make sure your post model is named "Post" (case sensitive)
+      ref: "Post", 
       required: [true, "Post is required"],
     },
     user: {

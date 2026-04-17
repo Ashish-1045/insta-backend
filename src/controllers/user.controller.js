@@ -1,8 +1,6 @@
-import UserModel from "../models/user.js";
+
 import { body, validationResult } from "express-validator";
 import * as userService from "../services/user.service.js";
-import { createUser } from "../services/user.service.js";
-import userModel from "../models/user.js";
 import redis from "../services/redis.service.js";
 
 

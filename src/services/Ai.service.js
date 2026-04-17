@@ -3,7 +3,7 @@
 
 // const ai = new GoogleGenerativeAI(config.GOOGLE_API_KEY);
 // const model = ai.getGenerativeModel({
-//   model: "gemini-2.0-flash",
+//   model: "gemini-3-flash-preview",
 //   systemInstruction:
 //     "You are a creative social media assistant. Generate only one attractive and engaging half-line caption for the image with 1-2 trending hashtags and emojis.",
 // });

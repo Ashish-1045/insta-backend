@@ -1,4 +1,4 @@
-// import { post } from "moongose/routes/users.js";
+
 import { generateCaptionFromImage } from "../services/Ai.service.js";
 import { uploadFile } from "../services/cloudStorage.service.js";
 import postModel from "../models/post.model.js";
@@ -70,40 +70,6 @@ export const likepost = async (req, res, next) => {
   }
 };
 
-// export const removeLikepost = async (req, res, next) => {
-//   try {
-//     const postId = req.params.postId;
-
-//     const isValid = await postModel.isValidPostId(postId);
-//     if (!isValid) {
-//       return res.status(400).json({ message: "Invalid Post ID" });
-//     }
-
-//     const post = await postModel.findById(postId);
-//     if (!post) {
-//       return res.status(404).json({ message: "Post Not Found" });
-//     }
-
-//     const userLikedPost = await likeModel.findOne({
-//       post: postId,
-//       user: req.user._id,
-//     });
-
-//     if (!userLikedPost) {
-//       return res.status(200).json({ message: "Post not liked yet" });
-//     }
-
-//     await likeModel.findOneAndDelete({
-//       post: postId,
-//       user: req.user._id,
-//     });
-//     await post.decrementLikeCount();
-//     res.status(200).json({ message: "post unliked" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };
 
 export const removeLikepost = async (req, res, next) => {
   try {
@@ -190,40 +156,6 @@ export const getPost = async (req, res, next) => {
   }
 };
 
-// export const commentOnPost = async (req, res, next) => {
-//   try {
-//     const { post, text, parentComment } = req.body;
-//     const currentPost = await postModel.findById(post);
-
-//     if (!currentPost) {
-//       return res.status(404).json({ message: "post not found" });
-//     }
-//  if (parentComment) {
-//       const isParentCommentExists = await commentModel.findById(parentComment);
-
-//       if (!isParentCommentExists) {
-//         return res.status(404).json({ message: "parent comment not found" });
-//       }
-//     }
-//     const newComment = await commentModel.create({
-//       post,
-//       user: req.user._id,
-
-//       text,
-//       parentComment,
-//     });
-
-//     await currentPost.incrementCommentCount();
-
-//     res.status(200).json({
-//       comment: newComment,
-//       message: "comment create successfully",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// };
 
 
 export const commentOnPost = async (req, res, next) => {
@@ -244,7 +176,7 @@ export const commentOnPost = async (req, res, next) => {
 
     const newComment = await commentModel.create({
       post,
-      user: req.user._id, // ✅ comes from authuser middleware
+      user: req.user._id, 
       text,
       parentComment: parentComment || null,
     });
