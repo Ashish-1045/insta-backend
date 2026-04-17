@@ -5,29 +5,7 @@ import postModel from "../models/post.model.js";
 import likeModel from "../models/likes.model.js";
 import commentModel from "../models/comment.model.js";
 
-// export const createpost = async (req, res, next) => {
-//   try {
-//     const imageBuffer = req.file?.buffer;
-//     if (!imageBuffer)
-//       return res.status(400).json({ error: "No file provided" });
 
-//     const [fileData, caption] = await Promise.all([
-//       uploadFile(imageBuffer),
-//       generateCaptionFromImage(imageBuffer),
-//     ]);
-
-//     const newPost = await postModel.create({
-//       caption,
-//       media: fileData,
-//       author: req.user._id,
-//     });
-
-//     res.status(201).json({ newPost });
-//   } catch (error) {
-//     console.error("Caption generation error:", error);
-//     next(error);
-//   }
-// };
 
 
 
@@ -39,7 +17,7 @@ export const createpost = async (req, res, next) => {
 
     const [fileData, caption] = await Promise.all([
       uploadFile(imageBuffer),
-      generateCaptionFromImage(imageBuffer, req.file.mimetype), // ✅ pass mimetype
+      generateCaptionFromImage(imageBuffer, req.file.mimetype), 
     ]);
 
     const newPost = await postModel.create({
@@ -271,7 +249,7 @@ export const commentOnPost = async (req, res, next) => {
       parentComment: parentComment || null,
     });
 
-    await currentPost.incrementCommentCount();
+    await currentPost.incrementComment();
 
     res.status(201).json({
       comment: newComment,

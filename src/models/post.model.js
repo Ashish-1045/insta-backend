@@ -71,13 +71,13 @@ postSchema.methods.decrementLikeCount = async function () {
   return this;
 };
 
-postSchema.methods.incrementComment = async (req, res, next) => {
+postSchema.methods.incrementComment = async function () {
   this.comment += 1;
   await this.save();
   return this;
 };
 
-postSchema.methods.decrementComment = async (req, res, next) => {
+postSchema.methods.decrementComment = async function () {
   this.comment -= 1;
   await this.save();
   return this;

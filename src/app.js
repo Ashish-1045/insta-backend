@@ -1,4 +1,3 @@
-import config from "./config/config.js";
 import express from "express";
 import morgan from "morgan";
 import userRoutes from "./routes/user.routes.js";
@@ -16,3 +15,4 @@ app.use("/ai",aiRoutes);
 app.use("/posts", postsRoutes);
 
 export default app;
+

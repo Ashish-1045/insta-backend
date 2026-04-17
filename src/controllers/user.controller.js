@@ -41,29 +41,6 @@ export const loginUserController = async (req, res) => {
     }
 };
 
-// export const logoutUserController = async (req, res) => {
-//     // try {
-//     //     res.clearCookie("token");
-//     //     res.status(200).json({ message: "Logout successful" });
-//     // } catch (error) {
-//     //     console.error("Logout Error:", error);
-//     //     res.status(500).json({ error: "Internal Server Error" });
-//     // }
-   
- 
-//     const tokenData = req.tokenData;
-
-//     if (!tokenData || !tokenData.exp || !tokenData._id) return;
-  
-//     const timeRemainingForToken = tokenData.exp * 1000 - Date.now();
-//     const expiryInSeconds = Math.floor(timeRemainingForToken / 1000);
-  
-//     if (isNaN(expiryInSeconds) || expiryInSeconds <= 0) return;
-  
-//     await redis.set(`blacklist:${tokenData._id}`, "true", "EX", expiryInSeconds);
-//     res.clearCookie("token");
-//     res.status(200).json({ message: "Logout successful" });
-// }
 
 export const logoutUserController = async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -82,3 +59,7 @@ export const logoutUserController = async (req, res) => {
 
   return res.status(200).json({ message: "User logged out successfully" });
 };
+
+
+
+

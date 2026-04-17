@@ -1,27 +1,33 @@
-import { text } from "express";
 import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema({
-  post:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'post',
-    requied:true,
+const commentSchema = new mongoose.Schema(
+  {
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "post",
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    text: {
+      type: String,
+      required: true,
+      maxlength: 500,
+    },
+    parentComment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comment",
+    },
   },
-  user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'user',
-    required:true,
-  },
-  text:{
-    type:String,
-    requied:true,
-  },
-  parentComment:{
-    type:mongoose.Schema.Types.ObjectId,
-   ref:'comment'
-  }
-})
+  { timestamps: true },
+);
 
-const commentModel = mongoose.model('comment',commentSchema);
+commentSchema.index({ post: 1 });
+commentSchema.index({ parentComment: 1 });
 
-export default commentModel;
+const Comment = mongoose.model("Comment", commentSchema);
+
+export default Comment;
