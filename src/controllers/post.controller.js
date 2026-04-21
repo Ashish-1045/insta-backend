@@ -5,10 +5,6 @@ import postModel from "../models/post.model.js";
 import likeModel from "../models/likes.model.js";
 import commentModel from "../models/comment.model.js";
 
-
-
-
-
 export const createpost = async (req, res, next) => {
   try {
     const imageBuffer = req.file?.buffer;
@@ -160,6 +156,7 @@ export const getPost = async (req, res, next) => {
 
 export const commentOnPost = async (req, res, next) => {
   try {
+    let commentComment = null;
     const { post, text, parentComment } = req.body;
 
     const currentPost = await postModel.findById(post);
@@ -169,6 +166,7 @@ export const commentOnPost = async (req, res, next) => {
 
     if (parentComment) {
       const isParentCommentExists = await commentModel.findById(parentComment);
+      commentComment = isParentCommentExists
       if (!isParentCommentExists) {
         return res.status(404).json({ message: "Parent comment not found" });
       }
@@ -178,7 +176,7 @@ export const commentOnPost = async (req, res, next) => {
       post,
       user: req.user._id, 
       text,
-      parentComment: parentComment || null,
+      parentComment: commentComment.parentComment || parentComment,
     });
 
     await currentPost.incrementComment();
