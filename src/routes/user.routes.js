@@ -22,7 +22,8 @@ router.get("/logout",
   usermiddleware.authuser,
   userConroller.logoutUserController);
 
-
-
-
+  router.get('/get-messages',
+     usermiddleware.authuser,
+      userConroller.getMessagesController)
+      
 export default router;

@@ -2,6 +2,7 @@
 import { body, validationResult } from "express-validator";
 import * as userService from "../services/user.service.js";
 import redis from "../services/redis.service.js";
+import messageModel from "../models/message.model.js";
 
 
 export const createUserController = async (req, res) => {
@@ -58,6 +59,29 @@ export const logoutUserController = async (req, res) => {
   return res.status(200).json({ message: "User logged out successfully" });
 };
 
+export const getMessagesController = async (req, res) => {
+  try {
+    const messages = await messageModel.find({
+      $or:[
+        {sender:req.user._id,
+          receiver:req.query.userId
+        },
+        {sender:req.query.userId,
+          receiver:req.user._id
+        },
+      ]
+    })
+      
+    res.status(200).json({
+       messages,
+       messageCount: messages.length,
+       message: "Messages fetched successfully"
+      });
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }   
+};
 
 
 
