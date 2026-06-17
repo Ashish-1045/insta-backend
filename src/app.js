@@ -13,6 +13,9 @@ app.use(cookieParser());
 app.use("/user", userRoutes);
 app.use("/ai",aiRoutes);
 app.use("/posts", postsRoutes);
+app.get("/", (req, res) => {
+  res.send("Backend Running ✅");
+});
 
 export default app;
 
